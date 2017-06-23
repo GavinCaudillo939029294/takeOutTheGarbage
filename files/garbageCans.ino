@@ -126,6 +126,7 @@ void loop()
 void checkButtonPress() {
   int buttonPress = 1;
   buttonPress = digitalRead(button);
+// if someone presses the button, turn the lights green for 1 second
   if ( buttonPress < 1 ) {
     neoPixelsGreen();
     Serial.println("Button Pressed");
@@ -152,7 +153,7 @@ void neoPixelsGreen () {
 // turn off NeoPixels (make them black)
 void neoPixelsOff () {
   for(int i=0;i<NUMPIXELS;i++){
-    strip.setPixelColor(i, strip.Color(0,0,0));  // RED
+    strip.setPixelColor(i, strip.Color(0,0,0));  // BLACK
     strip.show();
   }
 }
@@ -247,6 +248,7 @@ void checkNTPpacket() {
      * Sunday = 7
      */
 
+// if it's Thursday after 8pm, turn on the red light
     if ( weekday(epoch) == 5 ) {
       // Thursday
       if ( hour(epoch) > 19 ) {
@@ -255,6 +257,7 @@ void checkNTPpacket() {
         neoPixelsRed();
       }
     }
+// if it's Friday before 8am, turn on the red light
     else if ( weekday(epoch) == 6 ) {
       // Friday
       if ( hour(epoch) < 8 ) {
@@ -263,6 +266,7 @@ void checkNTPpacket() {
         neoPixelsRed();
       }
     }
+// otherwise, turn off the lights
     else {
       neoPixelsOff();
     }
